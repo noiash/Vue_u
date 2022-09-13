@@ -21,45 +21,34 @@
   <body>
     <!--仮想DOM-->
     <div id="app" class="parent">
-      <my-component title="テスト" class="child"></my-component>
-      <my-component :title="parentTitle" class="child"></my-component>
-      <my-component disabled class="child"></my-component>
+      <emit-test @custom-event="parentMethod" class="child"> </emit-test>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+
     <script>
-      let myComponent = {
+      let emitTest = {
         template: `<div>
-          あああ
-          {{ getTitle }}
-          <div v-show="isShow">表示</div>
-          </div>`,
-        props: {
-          title: {
-            type: String,
+      <button @click="childMethod">子側のボタン</button>
+      </div>`,
+        methods: {
+          childMethod() {
+            this.$emit("custom-event", "子の値");
           },
-          disabled: {
-            type: Boolean,
-            default: false,
-          },
-        },
-        data() {
-          return {
-            isShow: false,
-            getTitle: this.title,
-          };
         },
       };
+
       let app = new Vue({
         el: "#app",
         components: {
-          // "my-component": myComponent,
-          myComponent,
+          emitTest,
         },
         data() {
-          return {
-            parentTitle: "親側のタイトル",
-          };
+          return {};
+        },
+        methods: {
+          parentMethod(e) {
+            console.log(e);
+          },
         },
       });
     </script>

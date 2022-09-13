@@ -21,44 +21,40 @@
   <body>
     <!--仮想DOM-->
     <div id="app" class="parent">
-      <my-component title="テスト" class="child"></my-component>
-      <my-component :title="parentTitle" class="child"></my-component>
-      <my-component disabled class="child"></my-component>
+      <!-- <custom-input
+        :value="parentValue"
+        @input="parentValue = $event"
+        class="child"
+      ></custom-input> -->
+      <custom-input v-model="parentValue" class="child"></custom-input>
+      {{ parentValue }}
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+
     <script>
-      let myComponent = {
-        template: `<div>
-          あああ
-          {{ getTitle }}
-          <div v-show="isShow">表示</div>
-          </div>`,
+      let customInput = {
         props: {
-          title: {
+          value: {
             type: String,
           },
-          disabled: {
-            type: Boolean,
-            default: false,
-          },
         },
-        data() {
-          return {
-            isShow: false,
-            getTitle: this.title,
-          };
+        template: `<div>
+          <input :value="value" @input="childEvent">
+          </div>`,
+        methods: {
+          childEvent(e) {
+            this.$emit("input", e.target.value);
+          },
         },
       };
       let app = new Vue({
         el: "#app",
         components: {
-          // "my-component": myComponent,
-          myComponent,
+          customInput,
         },
         data() {
           return {
-            parentTitle: "親側のタイトル",
+            parentValue: "",
           };
         },
       });

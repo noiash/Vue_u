@@ -21,44 +21,34 @@
   <body>
     <!--仮想DOM-->
     <div id="app" class="parent">
-      <my-component title="テスト" class="child"></my-component>
-      <my-component :title="parentTitle" class="child"></my-component>
-      <my-component disabled class="child"></my-component>
+      <array-test
+        v-for="member in members"
+        :key="member.name"
+        :item="member"
+        class="child"
+      >
+      </array-test>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
     <script>
-      let myComponent = {
-        template: `<div>
-          あああ
-          {{ getTitle }}
-          <div v-show="isShow">表示</div>
-          </div>`,
+      let arrayTest = {
         props: {
-          title: {
-            type: String,
-          },
-          disabled: {
-            type: Boolean,
-            default: false,
+          item: {
+            type: Object,
           },
         },
-        data() {
-          return {
-            isShow: false,
-            getTitle: this.title,
-          };
-        },
+        template: `<div>
+          <p>{{ item.name }}</p><!--propsのオブジェクト名--></div>`,
       };
       let app = new Vue({
         el: "#app",
         components: {
-          // "my-component": myComponent,
-          myComponent,
+          arrayTest,
         },
         data() {
           return {
-            parentTitle: "親側のタイトル",
+            members: [{ name: "久保" }, { name: "南野" }, { name: "堂安" }],
           };
         },
       });
