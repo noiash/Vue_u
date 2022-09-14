@@ -5,6 +5,10 @@ import BookList from '../views/BookList.vue'
 import BookDetail from '@/components/BookDetail.vue'
 import ItemPage from '../views/ItemPage.vue'
 import NotFound from '@/components/NotFound.vue'
+import UserPage from '@/views/UserPage.vue'
+import UserProfile from '@/components/UserProfile.vue'
+import UserPost from '@/components/UserPost.vue'
+import HomeSub from '@/components/HomeSub.vue'
 
 Vue.use(VueRouter)
 
@@ -12,7 +16,10 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    components: {
+      default: HomeView,
+      sub: HomeSub
+    }
   },
   {
     path: '/about',
@@ -40,13 +47,30 @@ const routes = [
   {
     path: '/item/:id',
     name: 'Item',
-    component: ItemPage
+    component: ItemPage,
+    // beforeEnter: (to, from, next) => {
+
+    // }
   },
   {
     path: '*',
     // redirect: '/'
     name: 'NotFound',
     component: NotFound
+  },
+  {
+    path: '/user',
+    component: UserPage,
+    children: [
+      {
+        path: 'profile',
+        component: UserProfile
+      },
+      {
+        path: 'post',
+        component: UserPost
+      }
+    ]
   }
 ]
 
@@ -55,5 +79,11 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   console.log(to)
+//   console.log(from)
+//   next()
+// })
 
 export default router
