@@ -2,7 +2,9 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
-    <router-link to="/children">Children</router-link>
+    <router-link to="/children">Children</router-link> |
+    <router-link to="/teleport-test">Teleport</router-link> |
+    <router-link to="/composition-test">Composition</router-link> |
   </nav>
   <router-view/>
 </template>
