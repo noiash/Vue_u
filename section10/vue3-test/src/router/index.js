@@ -4,6 +4,8 @@ import ChildrenView from '@/views/ChildrenView'
 import TeleportTest from '@/views/TeleportTest'
 import CompositionTest from '@/views/CompositionTest'
 import PropsEmitTest from '@/views/PropsEmitTest'
+import FunctionTest from '@/views/FunctionTest'
+import RouterTest from '@/views/RouterTest'
 
 const routes = [
   {
@@ -30,6 +32,16 @@ const routes = [
     path: '/props-emit-test',
     name: 'PropsEmitTest',
     component: PropsEmitTest
+  },
+  {
+    path: '/function-test',
+    name: 'FunctionTest',
+    component: FunctionTest
+  },
+  {
+    path: '/router-test',
+    name: 'RouterTest',
+    component: RouterTest
   },
   {
     path: '/about',

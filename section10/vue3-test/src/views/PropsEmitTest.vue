@@ -7,6 +7,7 @@
     </li>
   </ul>
   <div>{{ dataBooks }}</div>
+  <button @click="emitTest">emitテスト</button>
 </template>
 
 <script>
@@ -15,9 +16,17 @@
     setupBooks: Array,
     dataBooks: Array
    },
-   setup(props){
+   setup(props, context){
     console.log(props.setupBooks[0].title)
     console.log(props.dataBooks)
+
+    const emitTest = () => {
+      context.emit('custom-event', '子の値')
+    }
+
+    return {
+      emitTest
+    }
    }
   }
 </script>
